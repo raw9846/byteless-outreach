@@ -1,0 +1,11 @@
+.env
+.google_sheets_token.json
+__pycache__/
+*.pyc
+
+# Generated audit output and lead data — not source code, and often
+# contains prospect-identifying business data
+companies/
+tracker.csv
+apollo-accounts-export.csv
+.deleted_backup/
