@@ -7,12 +7,12 @@ TOOL_CATEGORIES = {
     "ecommerce_platform": {
         "Shopify": ["cdn.shopify.com", "shopify.com"],
         "WooCommerce": ["woocommerce", "wc-ajax"],
-        "Magento": ["mage/", "magento"],
+        "Magento": ["magento", "mageInit", "mage/cookies", "mage/requirejs", "skin/frontend/", "static/frontend/"],
         "BigCommerce": ["bigcommerce.com"],
         "Squarespace Commerce": ["squarespace.com"],
         "Wix Stores": ["wixstatic.com"],
         "PrestaShop": ["prestashop"],
-        "OpenCart": ["opencart"],
+        "OpenCart": ["index.php?route=product", "catalog/view/theme"],
     },
     "email_marketing": {
         "Klaviyo": ["klaviyo.com"],

@@ -4,7 +4,8 @@ from typing import Dict, Any, Tuple
 from .tech_stack import detect_tech_stack
 from .performance import get_performance_score
 from .seo import analyze_seo
-from .jobs import find_job_signals
+from .jobs import find_job_signals, find_team_engineering_signals
+from .catalog import check_catalog_depth
 from .social import check_social_presence
 from .reviews import get_review_data
 from .automation import find_automation_gaps
@@ -55,6 +56,8 @@ def run_audit(domain: str, pagespeed_api_key: str = "", company_name: str = "") 
     result["performance"] = get_performance_score(url, pagespeed_api_key)
     result["seo"] = analyze_seo(html, url)
     result["jobs"] = find_job_signals(html, domain)
+    result["team"] = find_team_engineering_signals(html, domain)
+    result["catalog"] = check_catalog_depth(domain)
     result["social"] = check_social_presence(html)
     result["reviews"] = get_review_data(domain)
     result["automation"] = find_automation_gaps(html, domain)

@@ -173,4 +173,20 @@ def _extract_gaps_summary(audit_data: dict) -> str:
     elif mobile_scores.get("performance", 100) < 70:
         lines.append(f"Performance: poor (mobile score {mobile_scores.get('performance')})")
 
+    # In-house engineering team (vs. just hiring signals)
+    team = audit_data.get("team", {})
+    if team.get("has_in_house_engineering_team"):
+        lines.append(f"In-house engineering team: YES — titles found: {', '.join(team['engineering_titles_found'])}")
+    elif team.get("team_page_found"):
+        lines.append("In-house engineering team: team/about page found but no engineering titles listed")
+
+    # Catalog depth
+    catalog = audit_data.get("catalog", {})
+    pj = catalog.get("products_json_page1_count")
+    sm = catalog.get("product_sitemap_file_count")
+    if pj is not None:
+        lines.append(f"Catalog depth: {pj}+ products detected via products.json" + (" (capped at 250 — likely larger)" if pj == 250 else ""))
+    if sm is not None:
+        lines.append(f"Catalog depth: {sm} product-sitemap file(s) detected")
+
     return "\n".join(lines) if lines else "No pre-detected gaps — analyse the full audit data directly."

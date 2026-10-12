@@ -17,10 +17,10 @@ SIGNATURES: Dict[str, Dict[str, List[str]]] = {
     },
     "Ecommerce Platform": {
         "WooCommerce": ["woocommerce", "wc-ajax", "wc_add_to_cart"],
-        "Magento": ["mage/", "magento", "mageInit"],
-        "BigCommerce": ["bigcommerce.com", "stencil"],
+        "Magento": ["magento", "mageInit", "mage/cookies", "mage/requirejs", "skin/frontend/", "static/frontend/"],
+        "BigCommerce": ["bigcommerce.com", "cdn11.bigcommerce.com", "stencil-utils", "stencil-cli"],
         "PrestaShop": ["prestashop", "addons.prestashop"],
-        "OpenCart": ["opencart", "route=product"],
+        "OpenCart": ["index.php?route=product", "catalog/view/theme", "content=\"opencart"],
         "Shopware": ["shopware", "sw-plugin"],
         "Volusion": ["volusion.com"],
         "3dcart": ["3dcart.com"],

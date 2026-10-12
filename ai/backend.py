@@ -34,4 +34,12 @@ def run_prompt(prompt: str, timeout: int = 120) -> subprocess.CompletedProcess:
         cmd = ["codex", "exec", "--skip-git-repo-check", prompt]
     else:
         cmd = ["claude", "-p", prompt]
-    return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+
+    # A stray/placeholder ANTHROPIC_API_KEY in .env (loaded into os.environ by
+    # config.py's load_dotenv()) makes the Claude CLI try to auth with that
+    # literal value instead of the logged-in `claude login` session, breaking
+    # every call. Codex's CODEX_API_KEY is a legitimate supported auth path
+    # (see README), so only strip ANTHROPIC_API_KEY.
+    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
+
+    return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, env=env)

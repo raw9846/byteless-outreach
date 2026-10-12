@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -60,9 +61,15 @@ def get_credentials() -> Credentials:
         return creds
 
     if creds and creds.expired and creds.refresh_token and has_all_scopes:
-        creds.refresh(Request())
-        TOKEN_PATH.write_text(creds.to_json())
-        return creds
+        try:
+            creds.refresh(Request())
+            TOKEN_PATH.write_text(creds.to_json())
+            return creds
+        except RefreshError:
+            # Refresh token itself has been revoked/expired (not just the
+            # access token) — fall through to a fresh interactive consent
+            # flow instead of crashing.
+            creds = None
 
     if not CLIENT_ID or not CLIENT_SECRET:
         raise RuntimeError(
